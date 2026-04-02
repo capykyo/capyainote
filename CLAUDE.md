@@ -27,6 +27,7 @@ ainote/
 3. Document architecture findings in `architecture.md`
 
 ## Claude Guidance
+- 默认使用中文回复和撰写笔记
 - When adding a new repo, always update `README.md` with a link
 - Keep notes factual and tied to the actual source code
 - Use headings, code blocks, and links to specific files/lines when possible

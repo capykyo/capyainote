@@ -6,7 +6,7 @@ A curated index of GitHub repositories I'm studying.
 
 | Repo | Folder | Status | Notes |
 |------|--------|--------|-------|
-| _(none yet)_ | — | — | — |
+| [directus/directus](https://github.com/directus/directus) | [directus](./directus/README.md) | 学习中 | 目标：商用自托管部署 |
 
 ---
 
