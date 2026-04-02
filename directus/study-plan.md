@@ -8,8 +8,8 @@
 
 **目标：** 理解 Directus 是什么、能做什么、适合什么场景。
 
-- [ ] 阅读平台概览：Data Engine vs Data Studio
-- [ ] 了解核心概念：Collections、Fields、Items、Roles & Permissions
+- [x] 阅读平台概览：Data Engine vs Data Studio
+- [x] 了解核心概念：Collections、Fields、Items、Roles & Permissions
 - [ ] 跑通官方 Quickstart（本地 Docker 启动）
 - [ ] 熟悉 Data Studio 界面基本操作
 
@@ -89,7 +89,7 @@
 
 | 阶段 | 状态 | 备注 |
 |------|------|------|
-| 一：基础概念 | 未开始 | |
+| 一：基础概念 | 进行中 | 已完成概览与核心概念阅读 |
 | 二：API 与数据建模 | 未开始 | |
 | 三：权限与认证 | 未开始 | |
 | 四：自托管部署 | 未开始 | 核心目标 |
