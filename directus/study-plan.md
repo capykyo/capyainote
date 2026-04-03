@@ -11,6 +11,7 @@
 - [x] 阅读平台概览：Data Engine vs Data Studio
 - [x] 了解核心概念：Collections、Fields、Items、Roles & Permissions
 - [x] 跑通官方 Quickstart（本地 Docker 启动）
+- [ ] 搭建 PostgreSQL + Directus Docker 本地环境 → 详见 [docker-setup.md](./docker-setup.md)
 - [ ] 熟悉 Data Studio 界面基本操作 → 详见 [datastudio-tasks.md](./datastudio-tasks.md)
 
 **参考：** https://directus.io/docs/getting-started/overview

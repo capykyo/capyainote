@@ -2,6 +2,8 @@
 
 > 目标：全面了解并掌握 Directus Data Studio 的操作规则、边界与能力。
 > 对应学习计划：阶段一 — 熟悉 Data Studio 界面操作
+>
+> **前置条件：** 完成 PostgreSQL + Directus 本地环境搭建 → [docker-setup.md](./docker-setup.md)
 
 ---
 
