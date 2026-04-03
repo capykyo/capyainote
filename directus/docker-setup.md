@@ -12,7 +12,6 @@
 - [ ] 配置 Directus 环境变量，连接 PostgreSQL
 - [ ] 启动容器，验证 Directus 成功连接数据库
 - [ ] 验证数据持久化：重启容器后数据不丢失
-- [ ] （可选）加入 Redis 服务作为缓存
 
 ---
 
@@ -24,8 +23,8 @@ version: "3"
 services:
 
   database:
-    image: postgis/postgis:13-master
-    # 或使用标准镜像：postgres:15
+    image: postgres:15
+    # 如需地理空间扩展可改用：postgis/postgis:15-3.3
     volumes:
       - ./data/database:/var/lib/postgresql/data
     environment:
@@ -34,14 +33,6 @@ services:
       POSTGRES_DB: directus
     healthcheck:
       test: ["CMD", "pg_isready", "--host=localhost", "--username=directus"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-  cache:
-    image: redis:6
-    healthcheck:
-      test: ["CMD-SHELL", "[ $$(redis-cli ping) = 'PONG' ]"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -56,10 +47,8 @@ services:
     depends_on:
       database:
         condition: service_healthy
-      cache:
-        condition: service_healthy
     environment:
-      SECRET: "替换为随机字符串"
+      SECRET: "替换为随机字符串"        # openssl rand -hex 32
       PUBLIC_URL: "http://localhost:8055"
 
       DB_CLIENT: "pg"
@@ -68,11 +57,6 @@ services:
       DB_DATABASE: "directus"
       DB_USER: "directus"
       DB_PASSWORD: "directus"
-
-      CACHE_ENABLED: "true"
-      CACHE_AUTO_PURGE: "true"
-      CACHE_STORE: "redis"
-      REDIS: "redis://cache:6379"
 
       ADMIN_EMAIL: "admin@example.com"
       ADMIN_PASSWORD: "替换为强密码"
@@ -125,3 +109,67 @@ docker compose down -v
 
 - 官方部署文档：https://directus.io/docs/self-hosting/deploying
 - 环境变量参考：https://directus.io/docs/self-hosting/environment-variables
+
+---
+
+## 附加任务：接入 Redis 缓存
+
+> 完成主任务后进行，了解 Directus 缓存机制对性能的影响。
+
+### 任务清单
+
+- [ ] 在 `docker-compose.yml` 中加入 Redis 服务
+- [ ] 配置 Directus 连接 Redis，开启缓存
+- [ ] 验证缓存生效：观察重复请求响应速度变化
+- [ ] 测试 `CACHE_AUTO_PURGE`：修改数据后确认缓存自动失效
+- [ ] **边界测试**：停止 Redis 容器，观察 Directus 的降级行为
+
+### 在现有 docker-compose.yml 中追加
+
+在 `services` 下新增 `cache` 服务：
+
+```yaml
+  cache:
+    image: redis:6
+    healthcheck:
+      test: ["CMD-SHELL", "[ $$(redis-cli ping) = 'PONG' ]"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+```
+
+修改 `directus` 服务，加入 depends_on 和环境变量：
+
+```yaml
+  directus:
+    depends_on:
+      database:
+        condition: service_healthy
+      cache:                          # 新增
+        condition: service_healthy
+    environment:
+      # ... 原有变量保持不变，追加以下内容：
+      CACHE_ENABLED: "true"
+      CACHE_AUTO_PURGE: "true"
+      CACHE_STORE: "redis"
+      REDIS: "redis://cache:6379"
+```
+
+### Redis 在 Directus 中的作用
+
+| 功能 | 说明 |
+|------|------|
+| API 响应缓存 | 缓存 GET 请求结果，减少数据库查询 |
+| 缓存自动失效 | 写操作后自动清除相关缓存（`CACHE_AUTO_PURGE`） |
+| Rate Limiting | 可用 Redis 存储限流计数器 |
+| Session 存储 | 多实例部署时共享 Session 状态（生产必备）|
+
+### 验证命令
+
+```bash
+# 进入 Redis 容器查看缓存 key
+docker compose exec cache redis-cli keys "*"
+
+# 监控实时命令
+docker compose exec cache redis-cli monitor
+```
