@@ -1,0 +1,43 @@
+---
+description: AINotes 知识库 — GitHub 仓库阅读与笔记结构、工作流与撰写规范
+alwaysApply: true
+---
+
+# AINotes — GitHub Repo Reader
+
+## Project purpose
+
+Personal knowledge base for reading and annotating GitHub repositories. One folder per repo; all notes in Markdown.
+
+## Structure
+
+```
+ainote/
+├── CLAUDE.md           # Project instructions (legacy; mirrored in .cursor/rules)
+├── README.md           # Reading list — index of all tracked repos
+└── <owner>-<repo>/     # One folder per GitHub repo
+    ├── overview.md     # Summary, purpose, key concepts
+    ├── architecture.md # Code structure, modules, design patterns
+    └── notes.md        # Personal reading notes, questions, highlights
+```
+
+## Conventions
+
+- Folder naming: `<github-owner>-<repo-name>` (lowercase, hyphens).
+- Root `README.md` is the reading list — link to each repo folder.
+- Content only in `.md` files.
+- Each repo folder must have at least `overview.md`.
+
+## Workflow
+
+1. New repo: create `<owner>-<repo>/overview.md` and add an entry to `README.md`.
+2. Ongoing notes: `notes.md` inside the repo folder.
+3. Architecture: document in `architecture.md`.
+
+## Agent guidance
+
+- Default language for replies and note writing: **Chinese (Simplified)**.
+- When adding a repo, always update `README.md` with a link to the new folder.
+- Keep notes factual and tied to actual source code.
+- Use headings, fenced code blocks, and links to specific files/lines when possible.
+- Do not create files outside this structure without asking the user.
