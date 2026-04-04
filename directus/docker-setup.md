@@ -7,7 +7,7 @@
 
 ## 任务清单
 
-- [ ] 安装并确认 Docker Desktop 运行正常
+- [X] 安装并确认 Docker Desktop 运行正常
 - [ ] 编写 `docker-compose.yml`，包含 PostgreSQL + Directus 两个服务
 - [ ] 配置 Directus 环境变量，连接 PostgreSQL
 - [ ] 启动容器，验证 Directus 成功连接数据库
