@@ -8,10 +8,10 @@
 ## 任务清单
 
 - [X] 安装并确认 Docker Desktop 运行正常
-- [ ] 编写 `docker-compose.yml`，包含 PostgreSQL + Directus 两个服务
-- [ ] 配置 Directus 环境变量，连接 PostgreSQL
-- [ ] 启动容器，验证 Directus 成功连接数据库
-- [ ] 验证数据持久化：重启容器后数据不丢失
+- [X] 编写 `docker-compose.yml`，包含 PostgreSQL + Directus 两个服务
+- [X] 配置 Directus 环境变量，连接 PostgreSQL
+- [X] 启动容器，验证 Directus 成功连接数据库
+- [X] 验证数据持久化：重启容器后数据不丢失
 
 ---
 
@@ -109,6 +109,7 @@ docker compose down -v
 
 - 官方部署文档：https://directus.io/docs/self-hosting/deploying
 - 环境变量参考：https://directus.io/docs/self-hosting/environment-variables
+- [PostgreSQL 命令行](./postgres/README.md)：`psql`、元命令、备份恢复（配合本 Compose 的 `database` 服务）
 
 ---
 
